@@ -16,7 +16,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     const ok = await bcrypt.compare(passEl.value, user.pass);
     if (ok) {
-      window.api.loginSuccess();
+      window.location.href = 'desktop.html';
     } else {
       shake();
     }

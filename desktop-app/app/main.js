@@ -1,34 +1,10 @@
-import { app, BrowserWindow, ipcMain, dialog, session } from 'electron';
+import { app, BrowserWindow, ipcMain, dialog } from 'electron';
 import path from 'path';
-import { promises as fs } from 'fs';
 import { fileURLToPath } from 'url';
+import { ensureConfig, readConfig, saveConfig } from './configManager.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const CONFIG_NAME = 'config.json';
 let mainWindow;
-
-const DATA_DIR = app.getPath('userData');
-const CONFIG_PATH = path.join(DATA_DIR, CONFIG_NAME);
-const DEFAULT_CONFIG = path.join(__dirname, 'config', 'default-config.json');
-
-async function ensureConfig() {
-  try {
-    await fs.access(CONFIG_PATH);
-  } catch {
-    const data = await fs.readFile(DEFAULT_CONFIG, 'utf-8');
-    await fs.mkdir(DATA_DIR, { recursive: true });
-    await fs.writeFile(CONFIG_PATH, data);
-  }
-}
-
-async function readConfig() {
-  const data = await fs.readFile(CONFIG_PATH, 'utf-8');
-  return JSON.parse(data);
-}
-
-async function saveConfig(data) {
-  await fs.writeFile(CONFIG_PATH, JSON.stringify(data, null, 2));
-}
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -51,6 +27,7 @@ function createWindow() {
 }
 
 app.whenReady().then(async () => {
+  process.env.DATA_DIR = app.getPath('userData');
   await ensureConfig();
   createWindow();
 });
