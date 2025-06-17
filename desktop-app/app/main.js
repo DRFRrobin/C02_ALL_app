@@ -2,6 +2,7 @@ import { app, BrowserWindow, ipcMain, dialog } from 'electron';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { ensureConfig, readConfig, saveConfig } from './configManager.js';
+import { writeLog } from './logger.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 let mainWindow;
@@ -29,6 +30,7 @@ function createWindow() {
 app.whenReady().then(async () => {
   process.env.DATA_DIR = app.getPath('userData');
   await ensureConfig();
+  await writeLog('info', 'Application started');
   createWindow();
 });
 
@@ -50,6 +52,11 @@ ipcMain.handle('choose-folder', async () => {
     properties: ['openDirectory']
   });
   return result.canceled ? null : result.filePaths[0];
+});
+
+ipcMain.handle('write-log', async (event, level, msg) => {
+  await writeLog(level, msg);
+  return true;
 });
 
 ipcMain.on('login-success', async () => {
