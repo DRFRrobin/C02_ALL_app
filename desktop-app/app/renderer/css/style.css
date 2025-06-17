@@ -1,0 +1,14 @@
+body,html{margin:0;padding:0;font-family:"Segoe UI",sans-serif;user-select:none}
+#login-page{display:flex;align-items:center;justify-content:center;height:100vh;background:#1e1e1e;color:#fff}
+.login-card{background:#252525;padding:20px;border-radius:8px;box-shadow:0 2px 10px #0003;display:flex;flex-direction:column;gap:10px;width:280px}
+.login-card input{padding:8px;border:1px solid #555;border-radius:4px;background:#333;color:#fff}
+.login-card button{padding:8px;background:#0078D7;color:#fff;border:none;border-radius:4px;cursor:pointer}
+.hidden{display:none}
+#desktop{overflow:hidden}
+#wallpaper{position:fixed;top:0;left:0;right:0;bottom:0;background-size:cover;background-position:center}
+#taskbar{position:fixed;bottom:0;left:0;right:0;height:40px;background:#202020;color:#fff;display:flex;align-items:center;padding:0 6px;box-shadow:0 -1px 3px #0003;backdrop-filter:blur(8px)}
+#taskbar button{background:none;border:none;color:#fff;margin-right:10px;cursor:pointer}
+#desktop-icons{position:absolute;top:0;left:0;padding:10px;display:grid;grid-template-columns:repeat(auto-fill,80px);grid-auto-rows:80px;gap:10px}
+.icon{width:64px;height:64px;background:#444;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer}
+.window{position:absolute;background:#fff;border:1px solid #5a5a5a;border-radius:4px;box-shadow:0 2px 10px #0003;overflow:hidden}
+.window-header{background:#0078D7;color:#fff;padding:4px;cursor:move}
