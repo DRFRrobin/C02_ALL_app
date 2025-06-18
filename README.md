@@ -4,9 +4,9 @@ A fully offline Electron application that emulates a Windows-10 style desktop: l
 
 ---
 ## 1. Prerequisites
-- **Windows 10 / 11** 64-bit  
-- **Node.js 20 LTS** (npm ≥ 10)  
-- **Git (optional)** if you clone instead of downloading ZIP  
+- **Windows 10 / 11** 64-bit
+- **Git (optional)** if you clone instead of downloading ZIP
+- *(No separate Node.js install required – a portable runtime is bundled)*
 
 > **Offline note**  
 > After first download you can cut the network: installation, execution and packaging are 100 % offline.
@@ -21,9 +21,10 @@ run.bat     # double-click under Explorer
 
 `run.bat` will :
 
-1. Extract **npm-offline.tgz** (if present) into *node_modules/*
-2. Run `npm ci --offline || npm ci`
-3. Launch Electron full-screen
+1. Ensure a portable Node.js runtime is available (auto-download if missing)
+2. Extract **npm-offline.tgz** (if present) into *node_modules/*
+3. Run `npm ci --offline || npm ci` (falls back to online install once)
+4. Launch Electron full-screen
 
 ---
 
@@ -39,6 +40,7 @@ tar -czf npm-offline.tgz node_modules app/package-lock.json
 ```
 
 Copy the whole *desktop-app* (with **npm-offline.tgz**) to the offline machine and double-click **run.bat**.
+If `node.zip` is present, the script will extract it to provide a portable Node runtime.
 
 ---
 
@@ -49,7 +51,7 @@ Copy the whole *desktop-app* (with **npm-offline.tgz**) to the offline machine a
 | Dev launch           | `run.bat` or `npm start`                |
 | Unit tests           | `npm test -- --experimental-vm-modules` |
 | Build standalone EXE | `app/build-scripts/win-pack.bat`        |
-| Update from Git      | `update.bat [PR]`                       |
+| Update from Git      | `update.bat [PR]` (from `desktop-app`)  |
 
 ---
 
@@ -70,6 +72,8 @@ npm test -- --experimental-vm-modules
  desktop-app/
  │ run.bat          → offline-aware launcher
  │ update.bat       → self-update helper
+ │ node/            → portable Node runtime
+ │ node.zip         → fallback Node archive
  │ npm-offline.tgz  → optional cache
 └─ app/
    ├─ main.js, preload.js
@@ -103,12 +107,11 @@ An **Export** button in the desktop UI zips this directory for backup.
 
 ## 9. Troubleshooting
 
-| Issue                             | Fix                                        |
+| Issue                             | Fix |
 | --------------------------------- | ------------------------------------------ |
-| Electron window stays black       | Check GPU drivers + Node ≥ 20              |
-| `npm ERR! offline` during install | Ensure `npm-offline.tgz` is present        |
+| Electron window stays black       | Check GPU drivers; ensure portable Node extracted |
+| `npm ERR! offline` during install | Ensure `npm-offline.tgz` is present |
 | Jest ESM SyntaxError              | Run tests with `--experimental-vm-modules` |
-
 ---
 
 ## 10. License
