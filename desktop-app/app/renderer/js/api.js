@@ -13,3 +13,7 @@ export async function chooseFolder(){
 export async function log(level, msg){
   return await window.api.log(level, msg);
 }
+
+export function loginSuccess(){
+  window.api.loginSuccess();
+}

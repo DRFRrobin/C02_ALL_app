@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs';
-import { readConfig, log } from './api.js';
+import { readConfig, log, loginSuccess } from './api.js';
 
 window.addEventListener('DOMContentLoaded', () => {
   const loginEl = document.getElementById('login');
@@ -18,7 +18,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const ok = await bcrypt.compare(passEl.value, user.pass);
     if (ok) {
       await log('info', `User ${loginEl.value} logged in`);
-      window.location.href = 'desktop.html';
+      loginSuccess();
     } else {
       await log('warn', `Login failed for user ${loginEl.value}`);
       shake();

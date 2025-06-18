@@ -3,3 +3,5 @@ dist/
 .data/
 npm-offline.tgz
 package-lock.json
+
+node.zip
