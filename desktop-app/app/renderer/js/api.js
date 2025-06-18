@@ -10,6 +10,6 @@ export async function chooseFolder(){
   return await window.api.chooseFolder();
 }
 
-export async function writeLog(level, msg){
-  return await window.api.writeLog(level, msg);
+export async function log(level, msg){
+  return await window.api.log(level, msg);
 }

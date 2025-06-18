@@ -49,6 +49,7 @@ Copy the whole *desktop-app* (with **npm-offline.tgz**) to the offline machine a
 | Dev launch           | `run.bat` or `npm start`                |
 | Unit tests           | `npm test -- --experimental-vm-modules` |
 | Build standalone EXE | `app/build-scripts/win-pack.bat`        |
+| Update from Git      | `update.bat [PR]`                       |
 
 ---
 
@@ -66,9 +67,10 @@ npm test -- --experimental-vm-modules
 ## 6. Layout
 
 ```
-desktop-app/
-│ run.bat          → offline-aware launcher
-│ npm-offline.tgz  → optional cache
+ desktop-app/
+ │ run.bat          → offline-aware launcher
+ │ update.bat       → self-update helper
+ │ npm-offline.tgz  → optional cache
 └─ app/
    ├─ main.js, preload.js
    ├─ renderer/…
@@ -117,4 +119,8 @@ MIT
 
 ## 15. Logging system
 
-Daily log files are stored under `%APPDATA%/MyWebDesktop/logs` with a 14-day retention policy. Each log entry is timestamped and includes a level (`INFO`, `WARN`, etc.).
+Runtime events are traced to `%APPDATA%/MyWebDesktop/logs` with one file per day
+named `app-YYYY-MM-DD.log`. Only the last fourteen files are kept. The logger
+supports four levels: `info`, `warn`, `error` and `debug` (only written when
+`debug` is enabled in `config.json`). Call `window.api.log(level, message)` from
+the renderer to append a new entry.

@@ -4,5 +4,5 @@ contextBridge.exposeInMainWorld('api', {
   readConfig: () => ipcRenderer.invoke('read-config'),
   saveConfig: data => ipcRenderer.invoke('save-config', data),
   chooseFolder: () => ipcRenderer.invoke('choose-folder'),
-  writeLog: (level, msg) => ipcRenderer.invoke('write-log', level, msg)
+  log: (level, msg) => ipcRenderer.invoke('log', level, msg)
 });
