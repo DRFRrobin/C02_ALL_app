@@ -1,5 +1,6 @@
 {
   "users": [{"login": "admin", "pass": "$2b$12$qTWIHU1zKl1ICPcTIuYpi.d0oQv5D7SYxhgEygH25.wkgmKL9zGJC"}],
   "settings": {},
-  "filesDir": null
+  "filesDir": null,
+  "debug": false
 }

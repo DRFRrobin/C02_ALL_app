@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs';
-import { readConfig } from './api.js';
+import { readConfig, log } from './api.js';
 
 window.addEventListener('DOMContentLoaded', () => {
   const loginEl = document.getElementById('login');
@@ -11,13 +11,16 @@ window.addEventListener('DOMContentLoaded', () => {
     const cfg = await readConfig();
     const user = cfg.users.find(u => u.login === loginEl.value);
     if (!user) {
+      await log('warn', `Login failed for unknown user ${loginEl.value}`);
       shake();
       return;
     }
     const ok = await bcrypt.compare(passEl.value, user.pass);
     if (ok) {
+      await log('info', `User ${loginEl.value} logged in`);
       window.location.href = 'desktop.html';
     } else {
+      await log('warn', `Login failed for user ${loginEl.value}`);
       shake();
     }
   });

@@ -1,4 +1,4 @@
-import { readConfig, saveConfig } from './api.js';
+import { readConfig, saveConfig, log } from './api.js';
 
 let config;
 const desktopIcons = document.getElementById('desktop-icons');
@@ -10,6 +10,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   config = await readConfig();
   renderIcons();
   applyWallpaper();
+  log('info', 'Desktop loaded');
 });
 
 startBtn.addEventListener('click', () => {
@@ -51,6 +52,7 @@ function createWindow(title) {
   win.appendChild(body);
   windowZone.appendChild(win);
   dragElement(win, header);
+  log('info', `Window opened: ${title}`);
 }
 
 function dragElement(el, handle) {

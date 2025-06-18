@@ -9,3 +9,7 @@ export async function saveConfig(data){
 export async function chooseFolder(){
   return await window.api.chooseFolder();
 }
+
+export async function log(level, msg){
+  return await window.api.log(level, msg);
+}
